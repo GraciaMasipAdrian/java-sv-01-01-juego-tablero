@@ -1,93 +1,189 @@
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main{
-    public static void main(String[] args){
+
+public class Main {
+    public static void main(String[] args) {
+        int filaYoda = 0;
+        int columnaYoda = 0;
+        char YODA='Y';
         // 1º) Yago
-        char [][] matriz = new char [10][10];
+        char[][] matriz = new char[10][10];
 
-        //2º) Sergio
-        int vidas = 10;
 
-        //3º) Dani y David
-
-        for(int i =0;i<matriz.length; i++){
-            for(int j =0;j<matriz.length; j++) {
-                matriz[i][j] ='*';
-
+        // 2º) Sergio
+        int vidas = 9;
+        // 3) Dani
+        for (int fila = 0; fila < matriz.length ; fila++) {
+            for (int columna = 0; columna < matriz.length; columna++) {
+                matriz[fila][columna] = '*';
             }
         }
-
-        //4º) Carlos y Hector
-        for(int i =0;i<matriz.length; i++) {
-            for (int j = 0; j < matriz.length; j++) {
-                System.out.print(matriz[i][j] + " ");
+        matriz[filaYoda][columnaYoda] = YODA;
+        // 4º) Carlos y Héctor
+        for (int fila = 0; fila < matriz.length ; fila++) {
+            for (int columna = 0; columna < matriz.length ; columna++) {
+                System.out.print(matriz[fila][columna] + " ");
             }
             System.out.println();
         }
+        //Alejandro
 
-        //5º) Alejandro
-        char YODA = 'Y';
-        matriz[0][0] = YODA;
 
-        matriz[9][9] = 'F';
+        char CASILLA_FINAL= 'F';
+        matriz[9][9]= CASILLA_FINAL;
 
-        //6º) Marcos y Luis
+
+        //Marcos y Luis
+
+
         Random aleatorios = new Random();
-        int fila_aleatoria = aleatorios.nextInt(10);
-        int colum_aleatoria = aleatorios.nextInt(10);
-
-        matriz[fila_aleatoria][colum_aleatoria] = 'M';
-
-        //7º) Alex y Gabriel
 
 
-        int fila_random = aleatorios.nextInt(10);
-        int colum_random = aleatorios.nextInt(10);
+        int filaRandom = aleatorios.nextInt(10);
+        int columnaRandom = aleatorios.nextInt(10);
 
-        do{
-            fila_random = aleatorios.nextInt(10 );
-            colum_random = aleatorios.nextInt(10);
-        }while (matriz[fila_random][colum_random] != '*');
-        matriz[fila_aleatoria][colum_random] = 'P';
 
-        //8º Boris
-        for(int i = 0 ;i < 5;i++){
-            do{
-                fila_random = aleatorios.nextInt(10 );
-                colum_random = aleatorios.nextInt(10);
-            } while (matriz[fila_random][colum_random] !='*');
-            matriz[fila_random][colum_random] = 'P';
+        matriz[filaRandom][columnaRandom] = 'M';
 
-        }
 
-        //9º) Pablo
-        System.out.println("Tu jugador se encuentra en la casilla 0,0");
-        System.out.println("Te puedes mover con las letras W A S D");
+        //Alex
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Dime una letra");
-        char desplazamiento = sc.next().charAt(0);
-        System.out.println("La letra elegida es" + desplazamiento);
 
-        //yoel
-        int filayoda = 0;
-        int columnayoda = 0;
-        matriz[filayoda][columnayoda] = YODA;
-        if(desplazamiento == 'D'){
-            columnayoda = columnayoda +1;
-            matriz[filayoda] = YODA;
+        int filaAleatoria2 ;
+        int columnaAleatoria2 ;
+       /*
+       do {
+           filaAleatoria2 = aleatorios.nextInt(10);
+           columnaAleatoria2 = aleatorios.nextInt(10);
+       } while (matriz[filaAleatoria2][columnaAleatoria2] !='*');
+       matriz[filaAleatoria2][columnaAleatoria2] = 'P';
+       */
+        //Boris e Ikerr Se inserten 5 P
 
+
+        for (int i = 0; i < 5; i++){
+            do {
+                filaAleatoria2 = aleatorios.nextInt(10);
+                columnaAleatoria2 = aleatorios.nextInt(10);
+            } while (matriz[filaAleatoria2][columnaAleatoria2] !='*');
+            matriz[filaAleatoria2][columnaAleatoria2] = 'P';
         }
         System.out.println();
+        System.out.println();
+        for (int fila = 0; fila < matriz.length ; fila++) {
+            for (int columna = 0; columna < matriz.length ; columna++) {
+                System.out.print(matriz[fila][columna] + " ");
+            }
+            System.out.println();
+        }
+        // Pablo
+
+
+        System.out.println("Tu jugador se encuentra en la casilla 0,0");
+        System.out.println("y te puedes desplazar con las letras W A S D");
+
+
+        Scanner sc = new Scanner(System.in);
 
 
 
 
 
+        //Yoel
 
 
+        do {
 
-    }
-}
+            System.out.print("Dime una letra: ");
+            char desplazamiento = sc.next().charAt(0);
+
+
+            System.out.println("La letra elegida es " + desplazamiento);
+
+            if (desplazamiento == 'D') {
+                if (columnaYoda < 9) {
+                    matriz[filaYoda][columnaYoda] = '*';
+                    columnaYoda = columnaYoda + 1;
+                    matriz[filaYoda][columnaYoda] = YODA;
+                }
+                if (matriz[filaYoda][columnaYoda] == 'M') {
+                    vidas = vidas - 1;
+                }
+                System.out.println("Te has encontrado con un muro, una vida menos, ahora te quedan " + vidas + " vidas.");
+                if (matriz[filaYoda][columnaYoda] == 'P') {
+                    vidas = vidas + 1;
+                }
+                System.out.println("Te has encontrado con una poción, una vida más, ahora te quedan " + vidas + " vidas.");
+            } else {
+                System.out.println("No puedes moverte fuera del mapa");
+
+
+                if (desplazamiento == 'A') {
+                    if (columnaYoda > 0) {
+                        matriz[filaYoda][columnaYoda] = '*';
+                        columnaYoda = columnaYoda + 1;
+                        matriz[filaYoda][columnaYoda] = YODA;
+                    }
+                    if (matriz[filaYoda][columnaYoda] == 'M') {
+                        vidas = vidas - 1;
+                    }
+                    System.out.println("Te has encontrado con un muro, una vida menos, ahora te quedan " + vidas + " vidas.");
+                    if (matriz[filaYoda][columnaYoda] == 'P') {
+                        vidas = vidas + 1;
+                    }
+                    System.out.println("Te has encontrado con una poción, una vida más, ahora te quedan " + vidas + " vidas.");
+                } else {
+                    System.out.println("No puedes moverte fuera del mapa");
+
+
+                    if (desplazamiento == 'W') {
+                        if (filaYoda > 0) {
+                            matriz[filaYoda][columnaYoda] = '*';
+                            filaYoda = filaYoda - 1;
+                            matriz[filaYoda][columnaYoda] = YODA;
+                        }
+                        if (matriz[filaYoda][columnaYoda] == 'M') {
+                            vidas = vidas - 1;
+                        }
+                        System.out.println("Te has encontrado con un muro, una vida menos, ahora te quedan " + vidas + " vidas.");
+                        if (matriz[filaYoda][columnaYoda] == 'P') {
+                            vidas = vidas + 1;
+                        }
+                        System.out.println("Te has encontrado con una poción, una vida más, ahora te quedan " + vidas + " vidas.");
+                    } else {
+                        System.out.println("No puedes moverte fuera del mapa");
+
+
+                        if (desplazamiento == 'S') {
+                            if (filaYoda < 9) {
+                                matriz[filaYoda][columnaYoda] = '*';
+                                filaYoda = filaYoda + 1;
+                                matriz[filaYoda][columnaYoda] = YODA;
+                                if (matriz[filaYoda][columnaYoda] == 'M') {
+                                    vidas = vidas - 1;
+                                }
+                                System.out.println("Te has encontrado con un muro, una vida menos, ahora te quedan " + vidas + " vidas.");
+                                if (matriz[filaYoda][columnaYoda] == 'P') {
+                                    vidas = vidas + 1;
+                                }
+                                System.out.println("Te has encontrado con una poción, una vida más, ahora te quedan " + vidas + " vidas.");
+                            }
+                        } else {
+                            System.out.println("No puedes moverte fuera del mapa");
+
+
+                        }
+                        for (int fila = 0; fila < matriz.length; fila++) {
+                            for (int columna = 0; columna < matriz.length; columna++) {
+                                System.out.print(matriz[fila][columna] + " ");
+                            }
+                            System.out.println("");
+                        }
+                    }
+                    while (vidas >= 0) ;
+
+
+                }
+            }
+        }
